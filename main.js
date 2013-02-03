@@ -10,7 +10,7 @@ var visualization=function(){
   //canvas.width = canvas.width;//Reset the canvas
   //add a transperancy
   var context=canvas.getContext('2d');
-  context.fillStyle = "rgba(0,0,0, 0.3)";
+  context.fillStyle = "rgba(0,0,0,"+document.getElementById('transperancy').value+")";
   context.fillRect(0,0,1024,600);
   
   if(this.visualization=='waveform')
