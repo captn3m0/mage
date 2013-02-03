@@ -43,7 +43,7 @@ document.getElementById('equalizer').onclick=function()
   sound.visualization='equalizer';
 }
 soundManager.setup({
-  url: '/muzi/swf/',
+  url: './swf/',
   flashVersion: 9, // optional: shiny features (default = 8)
   onready: function() {
     // Ready to use; soundManager.createSound() etc. can now be called.
