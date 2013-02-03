@@ -13,11 +13,15 @@
 		     height:600px;
 		     margin: 0px auto;
 		}
+		html{
+			background-color:black;
+		}
 	</style>
 </head>
 <body>
 	<button id="waveform">Waveform</button>
 	<button id="equalizer">Equalizer</button>
+	<input type="range" min="1" max="10" id="width">
 	<div id="wrapper">
 		<canvas id="canvas" width="1024" height="600">Your browser doesn't support canvas.</canvas>
 	</div>

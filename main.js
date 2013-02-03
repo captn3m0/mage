@@ -1,13 +1,25 @@
+function randColor(){
+  var r=Math.floor(Math.random()*255);
+  var g=Math.floor(Math.random()*255);
+  var b=Math.floor(Math.random()*255);
+  var color="rgb("+r+","+g+","+b+")";
+  return color;
+}
 var visualization=function(){
   var canvas=document.getElementById("canvas")
-  canvas.width = canvas.width;//Reset the canvas
+  //canvas.width = canvas.width;//Reset the canvas
+  //add a transperancy
   var context=canvas.getContext('2d');
+  context.fillStyle = "rgba(0,0,0, 0.3)";
+  context.fillRect(0,0,1024,600);
+  
   if(this.visualization=='waveform')
   {
     context.beginPath();
-    context.fillStyle = "#000";
-    context.strokeStyle = "#000"
-    context.lineWidth = 2;
+    var color=randColor();
+    context.fillStyle = color;
+    context.strokeStyle = color;
+    context.lineWidth = document.getElementById('width').value;
     context.lineJoin = "round";
     context.moveTo(0,300);
     for(i in this.waveformData.left)
@@ -20,7 +32,7 @@ var visualization=function(){
   }
   else
   {
-    context.fillStyle = "#000";
+    context.fillStyle = randColor();
     var min=1000000,max=0;
     for(var i=0;i<this.eqData.left.length;i++)
     {
