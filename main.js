@@ -40,7 +40,6 @@ var visualization=function(){
     context.stroke();
     context.closePath();
   }
-<<<<<<< HEAD
   if(this.visualization=='particles'){
     document.getElementsByTagName('html')[0].style.backgroundColor = '#FFF';
     dc = context;
@@ -112,15 +111,9 @@ var visualization=function(){
       dc.fill();
     }
   }
-  else
-  {
-    
-    context.fillStyle = randColor();
-=======
   else if(this.visualization=='equalizer')
   {
     context.fillStyle = randColor(150);
->>>>>>> 806cded40af4a585f65a5f383427c869007a8ec4
     var min=1000000,max=0;
     for(var i=0;i<this.eqData.left.length;i++)
     {
@@ -147,7 +140,6 @@ var visualization=function(){
     context.arc(x,y,radius*300+10,0,Math.PI*2,true);
     context.closePath();
     context.fill();
-
   }
   else
   {
@@ -201,6 +193,16 @@ document.getElementById('circle').onclick=function()
   var sound = soundManager.getSoundById('mySound');
   sound.visualization='circle';
 }
+document.getElementById('arc').onclick=function()
+{
+  var sound = soundManager.getSoundById('mySound');
+  sound.visualization='arc';
+}
+document.getElementById('circle').onclick=function()
+{
+  var sound = soundManager.getSoundById('mySound');
+  sound.visualization='circle';
+}
 soundManager.setup({
   url: './swf/',
   flashVersion: 9, // optional: shiny features (default = 8)
@@ -220,10 +222,6 @@ soundManager.setup({
       whileplaying: visualization,
       volume: 50
     });
-<<<<<<< HEAD
     sound.visualization='particles';
-=======
-    sound.visualization='arc';
->>>>>>> 806cded40af4a585f65a5f383427c869007a8ec4
   }
 });
