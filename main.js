@@ -1,12 +1,15 @@
 var canvas=document.getElementById("canvas");
 canvas.height=window.screen.height;
 
-function randColor(upto){
+function randColor(upto,opacity){
   upto=upto||255;
-  var r=Math.floor(Math.random()*100);
-  var g=Math.floor(Math.random()*100);
-  var b=Math.floor(Math.random()*100);
-  var a=(Math.random()*0.6);
+  var r=Math.floor(Math.random()*upto);
+  var g=Math.floor(Math.random()*upto);
+  var b=Math.floor(Math.random()*upto);
+  if(opacity)
+    var a=(Math.random()*0.8);
+  else
+    var a=1;
   var color="rgba("+r+","+g+","+b+","+a+")";
   return color;
 }
@@ -53,10 +56,9 @@ var visualization=function(){
     canvas.height=canvas.height;
     var x = 512;
     var y = canvas.height;
-    var radius = (this.peakData.left + this.peakData.right)/2;  
-    console.log(radius);
+    var radius = (this.peakData.left + this.peakData.right)/2;
     var grd=context.createRadialGradient(x,y,5,x,y,100);
-    var color = randColor();
+    var color = randColor(200,true);
     grd.addColorStop(0,color);
     grd.addColorStop(1,"white");
     context.fillStyle = grd;
