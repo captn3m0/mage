@@ -1,8 +1,16 @@
-function randColor(){
-  var r=Math.floor(Math.random()*255);
-  var g=Math.floor(Math.random()*255);
-  var b=Math.floor(Math.random()*255);
-  var color="rgb("+r+","+g+","+b+")";
+var canvas=document.getElementById("canvas");
+canvas.height=window.screen.height;
+
+function randColor(upto,opacity){
+  upto=upto||255;
+  var r=Math.floor(Math.random()*upto);
+  var g=Math.floor(Math.random()*upto);
+  var b=Math.floor(Math.random()*upto);
+  if(opacity)
+    var a=(Math.random()*0.8);
+  else
+    var a=1;
+  var color="rgba("+r+","+g+","+b+","+a+")";
   return color;
 }
 
@@ -32,6 +40,7 @@ var visualization=function(){
     context.stroke();
     context.closePath();
   }
+<<<<<<< HEAD
   if(this.visualization=='particles'){
     document.getElementsByTagName('html')[0].style.backgroundColor = '#FFF';
     dc = context;
@@ -107,15 +116,62 @@ var visualization=function(){
   {
     
     context.fillStyle = randColor();
+=======
+  else if(this.visualization=='equalizer')
+  {
+    context.fillStyle = randColor(150);
+>>>>>>> 806cded40af4a585f65a5f383427c869007a8ec4
     var min=1000000,max=0;
     for(var i=0;i<this.eqData.left.length;i++)
     {
       var value=this.eqData.left[i];
       var height=value*400;
       var x=4*i;
+
       var width=4;
       context.fillRect(x,600-height,width,height);
     }
+  }
+  else if(this.visualization == "circle")
+  {
+    canvas.height=canvas.height;
+    var x = 512;
+    var y = canvas.height;
+    var radius = (this.peakData.left + this.peakData.right)/2;
+    var grd=context.createRadialGradient(x,y,5,x,y,100);
+    var color = randColor(200,true);
+    grd.addColorStop(0,color);
+    grd.addColorStop(1,"white");
+    context.fillStyle = grd;
+    context.beginPath();
+    context.arc(x,y,radius*300+10,0,Math.PI*2,true);
+    context.closePath();
+    context.fill();
+
+  }
+  else
+  {
+    canvas.height=canvas.height;
+    //Create some arc visualizations
+    var x = 512;
+    var y = canvas.height+60;
+    var radius = (this.peakData.left + this.peakData.right)/2;	
+    var leftRadius = radius*300+50;
+    var rightRadius = radius*300+50;
+    var startAngle = 1 * Math.PI;
+    var endAngle = 2 * Math.PI;
+    var counterClockwise = false;
+    var color=randColor(100);
+    context.beginPath();
+    context.arc(x, y, leftRadius, startAngle, 3/2*Math.PI, counterClockwise);
+    context.lineWidth = 4;
+    context.strokeStyle = color;
+    context.stroke();
+    context.beginPath();
+    context.arc(x, y, rightRadius, 3/2*Math.PI,endAngle , counterClockwise);
+    context.lineWidth = 4;//this.peakData.right*100;
+    context.strokeStyle = color;
+    context.stroke();
   }
 }
 document.getElementById('waveform').onclick=function()
@@ -135,6 +191,16 @@ document.getElementById('particles').onclick = function(){
   sound.visualization='particles';
   document.getElementsByTagName('html')[0].style.backgroundColor = '#FFF';
 }
+document.getElementById('arc').onclick=function()
+{
+  var sound = soundManager.getSoundById('mySound');
+  sound.visualization='arc';
+}
+document.getElementById('circle').onclick=function()
+{
+  var sound = soundManager.getSoundById('mySound');
+  sound.visualization='circle';
+}
 soundManager.setup({
   url: './swf/',
   flashVersion: 9, // optional: shiny features (default = 8)
@@ -145,7 +211,7 @@ soundManager.setup({
       url: 'audio.mp3',
       autoLoad: true,
       autoPlay: true,
-      usePeakData: false,     // enable left/right channel peak (level) data
+      usePeakData: true,     // enable left/right channel peak (level) data
       useWaveformData: true, // enable sound spectrum (raw waveform data) - WARNING: May set CPUs on fire.
       useEQData: true,       // enable sound EQ (frequency spectrum data) - WARNING: Also CPU-intensive.
       onload: function() {
@@ -154,6 +220,10 @@ soundManager.setup({
       whileplaying: visualization,
       volume: 50
     });
+<<<<<<< HEAD
     sound.visualization='particles';
+=======
+    sound.visualization='arc';
+>>>>>>> 806cded40af4a585f65a5f383427c869007a8ec4
   }
 });
