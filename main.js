@@ -2,9 +2,9 @@ var canvas=document.getElementById("canvas");
 canvas.height=window.screen.height;
 
 function randColor(){
-  var r=Math.floor(Math.random()*255);
-  var g=Math.floor(Math.random()*255);
-  var b=Math.floor(Math.random()*255);
+  var r=Math.floor(Math.random()*100);
+  var g=Math.floor(Math.random()*100);
+  var b=Math.floor(Math.random()*100);
   var color="rgb("+r+","+g+","+b+")";
   return color;
 }
@@ -52,19 +52,20 @@ var visualization=function(){
     //Create some arc visualizations
     var x = 512;
     var y = canvas.height+60;
-    var radius = 150;
+    var leftRadius = this.peakData.left*300+50;
+    var rightRadius = this.peakData.right*300+50;
     var startAngle = 1 * Math.PI;
     var endAngle = 2 * Math.PI;
     var counterClockwise = false;
     var color=randColor();
     context.beginPath();
-    context.arc(x, y, radius, startAngle, 3/2*Math.PI, counterClockwise);
-    context.lineWidth = this.peakData.left*100;
+    context.arc(x, y, leftRadius, startAngle, 3/2*Math.PI, counterClockwise);
+    context.lineWidth = 4;
     context.strokeStyle = color;
     context.stroke();
     context.beginPath();
-    context.arc(x, y, radius, 3/2*Math.PI,endAngle , counterClockwise);
-    context.lineWidth = this.peakData.right*100;
+    context.arc(x, y, rightRadius, 3/2*Math.PI,endAngle , counterClockwise);
+    context.lineWidth = 4;//this.peakData.right*100;
     context.strokeStyle = color;
     context.stroke();
   }
