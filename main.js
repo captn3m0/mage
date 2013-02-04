@@ -131,7 +131,7 @@ var visualization=function(){
     var x = 512;
     var y = canvas.height;
     var radius = (this.peakData.left + this.peakData.right)/2;
-    var grd=context.createRadialGradient(x,y,5,x,y,100);
+    var grd=context.createRadialGradient(x,y,5,x,y,radius*300+10);
     var color = randColor(200,true);
     grd.addColorStop(0,color);
     grd.addColorStop(1,"white");
@@ -140,6 +140,7 @@ var visualization=function(){
     context.arc(x,y,radius*300+10,0,Math.PI*2,true);
     context.closePath();
     context.fill();
+
   }
   else
   {
