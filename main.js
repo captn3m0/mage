@@ -1,3 +1,6 @@
+var canvas=document.getElementById("canvas");
+canvas.height=window.screen.height;
+
 function randColor(){
   var r=Math.floor(Math.random()*255);
   var g=Math.floor(Math.random()*255);
@@ -29,7 +32,7 @@ var visualization=function(){
     context.stroke();
     context.closePath();
   }
-  else
+  else if(this.visualization=='equalizer')
   {
     context.fillStyle = randColor();
     var min=1000000,max=0;
@@ -38,9 +41,32 @@ var visualization=function(){
       var value=this.eqData.left[i];
       var height=value*400;
       var x=4*i;
+
       var width=4;
       context.fillRect(x,600-height,width,height);
     }
+  }
+  else
+  {
+    canvas.height=canvas.height;
+    //Create some arc visualizations
+    var x = 512;
+    var y = canvas.height+60;
+    var radius = 150;
+    var startAngle = 1 * Math.PI;
+    var endAngle = 2 * Math.PI;
+    var counterClockwise = false;
+    var color=randColor();
+    context.beginPath();
+    context.arc(x, y, radius, startAngle, 3/2*Math.PI, counterClockwise);
+    context.lineWidth = this.peakData.left*100;
+    context.strokeStyle = color;
+    context.stroke();
+    context.beginPath();
+    context.arc(x, y, radius, 3/2*Math.PI,endAngle , counterClockwise);
+    context.lineWidth = this.peakData.right*100;
+    context.strokeStyle = color;
+    context.stroke();
   }
 }
 document.getElementById('waveform').onclick=function()
@@ -53,6 +79,11 @@ document.getElementById('equalizer').onclick=function()
   var sound = soundManager.getSoundById('mySound');
   sound.visualization='equalizer';
 }
+document.getElementById('arc').onclick=function()
+{
+  var sound = soundManager.getSoundById('mySound');
+  sound.visualization='arc';
+}
 soundManager.setup({
   url: './swf/',
   flashVersion: 9, // optional: shiny features (default = 8)
@@ -63,7 +94,7 @@ soundManager.setup({
       url: 'audio.mp3',
       autoLoad: true,
       autoPlay: true,
-      usePeakData: false,     // enable left/right channel peak (level) data
+      usePeakData: true,     // enable left/right channel peak (level) data
       useWaveformData: true, // enable sound spectrum (raw waveform data) - WARNING: May set CPUs on fire.
       useEQData: true,       // enable sound EQ (frequency spectrum data) - WARNING: Also CPU-intensive.
       onload: function() {
@@ -72,6 +103,6 @@ soundManager.setup({
       whileplaying: visualization,
       volume: 50
     });
-    sound.visualization='waveform';
+    sound.visualization='arc';
   }
 });

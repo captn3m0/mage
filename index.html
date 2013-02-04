@@ -13,19 +13,21 @@
 		     height:600px;
 		     margin: 0px auto;
 		}
-		html{
-			background-color:black;
+		html,body{
+			background-color:white;
+			margin:0;
 		}
 	</style>
 </head>
 <body>
+	<button id="arc" id="arc">Arc</button>
 	<button id="waveform">Waveform</button>
 	<button id="equalizer">Equalizer</button>
 	<input type="range" min="1" max="10" id="width" title="waveform width" value="2">
 	<input type="range" min="0" max="1" step="0.1" id="transperancy" title="transperancy" value="0.3">
 
 	<div id="wrapper">
-		<canvas id="canvas" width="1024" height="600">Your browser doesn't support canvas.</canvas>
+		<canvas id="canvas" width="1024">Your browser doesn't support canvas.</canvas>
 	</div>
 	<script src="soundmanager2-jsmin.js"></script>
 	<script src="main.js"></script>
