@@ -40,7 +40,7 @@ var visualization=function(){
     context.stroke();
     context.closePath();
   }
-  if(this.visualization=='particles'){
+  else if(this.visualization=='particles'){
     document.getElementsByTagName('html')[0].style.backgroundColor = '#FFF';
     dc = context;
     width = canvas.width;
@@ -170,7 +170,6 @@ document.getElementById('waveform').onclick=function()
 {
   var sound = soundManager.getSoundById('mySound');
   sound.visualization='waveform';
-  document.getElementsByTagName('html')[0].style.backgroundColor = '#000';
 }
 document.getElementById('equalizer').onclick=function()
 {
