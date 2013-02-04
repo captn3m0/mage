@@ -1,7 +1,8 @@
 var canvas=document.getElementById("canvas");
 canvas.height=window.screen.height;
 
-function randColor(){
+function randColor(upto){
+  upto=upto||255;
   var r=Math.floor(Math.random()*100);
   var g=Math.floor(Math.random()*100);
   var b=Math.floor(Math.random()*100);
@@ -34,7 +35,7 @@ var visualization=function(){
   }
   else if(this.visualization=='equalizer')
   {
-    context.fillStyle = randColor();
+    context.fillStyle = randColor(150);
     var min=1000000,max=0;
     for(var i=0;i<this.eqData.left.length;i++)
     {
@@ -57,7 +58,7 @@ var visualization=function(){
     var startAngle = 1 * Math.PI;
     var endAngle = 2 * Math.PI;
     var counterClockwise = false;
-    var color=randColor();
+    var color=randColor(100);
     context.beginPath();
     context.arc(x, y, leftRadius, startAngle, 3/2*Math.PI, counterClockwise);
     context.lineWidth = 4;
