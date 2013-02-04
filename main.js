@@ -6,7 +6,8 @@ function randColor(upto){
   var r=Math.floor(Math.random()*100);
   var g=Math.floor(Math.random()*100);
   var b=Math.floor(Math.random()*100);
-  var color="rgb("+r+","+g+","+b+")";
+  var a=(Math.random()*0.6);
+  var color="rgba("+r+","+g+","+b+","+a+")";
   return color;
 }
 var visualization=function(){
@@ -47,14 +48,33 @@ var visualization=function(){
       context.fillRect(x,600-height,width,height);
     }
   }
+  else if(this.visualization == "circle")
+  {
+    canvas.height=canvas.height;
+    var x = 512;
+    var y = canvas.height;
+    var radius = (this.peakData.left + this.peakData.right)/2;  
+    console.log(radius);
+    var grd=context.createRadialGradient(x,y,5,x,y,100);
+    var color = randColor();
+    grd.addColorStop(0,color);
+    grd.addColorStop(1,"white");
+    context.fillStyle = grd;
+    context.beginPath();
+    context.arc(x,y,radius*300+10,0,Math.PI*2,true);
+    context.closePath();
+    context.fill();
+
+  }
   else
   {
     canvas.height=canvas.height;
     //Create some arc visualizations
     var x = 512;
     var y = canvas.height+60;
-    var leftRadius = this.peakData.left*300+50;
-    var rightRadius = this.peakData.right*300+50;
+    var radius = (this.peakData.left + this.peakData.right)/2;	
+    var leftRadius = radius*300+50;
+    var rightRadius = radius*300+50;
     var startAngle = 1 * Math.PI;
     var endAngle = 2 * Math.PI;
     var counterClockwise = false;
@@ -85,6 +105,11 @@ document.getElementById('arc').onclick=function()
 {
   var sound = soundManager.getSoundById('mySound');
   sound.visualization='arc';
+}
+document.getElementById('circle').onclick=function()
+{
+  var sound = soundManager.getSoundById('mySound');
+  sound.visualization='circle';
 }
 soundManager.setup({
   url: './swf/',
