@@ -52,8 +52,9 @@ var visualization=function(){
     //Create some arc visualizations
     var x = 512;
     var y = canvas.height+60;
-    var leftRadius = this.peakData.left*300+50;
-    var rightRadius = this.peakData.right*300+50;
+    var radius = (this.peakData.left + this.peakData.right)/2;	
+    var leftRadius = radius*300+50;
+    var rightRadius = radius*300+50;
     var startAngle = 1 * Math.PI;
     var endAngle = 2 * Math.PI;
     var counterClockwise = false;
